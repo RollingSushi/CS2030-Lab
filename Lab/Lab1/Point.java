@@ -18,7 +18,7 @@ public class Point {
 	public double distanceTo(Point p) {
 		double dispX = this.x - p.x;
 		double dispY = this.y - p.y;
-		return Math.sqrt(dispX*dispX+dispY*dispY);
+		return Math.sqrt((dispX*dispX)+(dispY*dispY));
 	}
 
 	public Point midPoint(Point p) {

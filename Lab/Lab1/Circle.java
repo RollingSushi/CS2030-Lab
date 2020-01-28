@@ -17,28 +17,28 @@ public class Circle {
 	}
 
 	public boolean contains(Point point) {
-		double dx= centre.getX()- point.getX();
-		double dy= centre.getY()- point.getY();
-		return Math.sqrt(dx*dx+dy*dy) < radius;
+		return this.centre.distanceTo(point) <= radius;
 		}
 
 	public static int MaxDiscCov(Circle[] c, Point[] p) {
-		int current = 1;
-		int currentMax = 0;
+		int covMax = 0;
 
 		for (int i = 0; i < c.length; i++) {
-			for (int j = 0; j < p.length; j++)
-				if (c[i].contains(p[j])) {
-					current++;
+			int current = 0;
+			for (int j = 0; j < p.length; j++) {
+				if (c[i] == null) {
 
-					if (current > currentMax) {
-						currentMax = current;
-						current = 1;
-					}
+				}
+				else if (c[i].contains(p[j])) {
+					current++;
+				}
+			}
+			if (current > covMax) {
+				covMax = current;
 				}
 		}
-		
-		return currentMax;
+
+		return covMax;
 	}
 
 	@Override

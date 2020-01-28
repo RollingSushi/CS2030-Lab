@@ -12,14 +12,19 @@ public class Main {
 				allPoints[i] = new Point(sc.nextDouble(), sc.nextDouble());
 			}			
 
-			int numOfCircles = Combination.comb(numOfPoints, 2);
+			int numOfCircles = Main.comb(numOfPoints, 2);
 			Circle[] allCircles = new Circle[numOfCircles];
 			int index = 0;
 			for (int i = 0; i < numOfPoints; i++) {
 				for (int j = i + 1; j < numOfPoints; j++) {
-					allCircles[index] = createCircle(allPoints[i], allPoints[j], 1);
-					index++;
-					System.out.println(Arrays.toString(allCircles));
+					if (allPoints[i].distanceTo(allPoints[j]) > 2) {
+						
+					}
+					else {
+						allCircles[index] = createCircle(allPoints[i], allPoints[j], 1);
+						index++;
+					}
+					
 				}
 				
 			}
@@ -28,17 +33,29 @@ public class Main {
 			System.out.println("Maximum Disc Coverage: " + MaxDiscCovered);
 		
 	}
+
+	public static int comb(int n , int r)
+	{
+		if( r== 0 || n == r)
+			return 1;
+		else
+			return comb(n-1,r)+comb(n-1,r-1);
+	}
 			
 		
 	public static Circle createCircle(Point p1, Point p2, double radius) {
 
 			Point midPoint = p1.midPoint(p2);
-			if (radius < p1.distanceTo(p2) || (p1.equals(p2))) {
+			double distance = Math.sqrt((radius * radius) - (midPoint.distanceTo(p2)* midPoint.distanceTo(p2)));
+			if ((radius < midPoint.distanceTo(p2)) || (p1.equals(p2))) {
 				return null;
 			}
+			else if (Double.isNaN(distance)) {
+				return null;
+			}
+
 			else {				
-				double distance = Math.sqrt((radius * radius) - (midPoint.getX()* midPoint.getX()));
-				Point centre = midPoint.moveTo((Math.PI/2) - p1.angleTo(p2), distance);
+				Point centre = midPoint.moveTo((Math.PI/2) - p1.angleTo(p2) , distance);
 				return Circle.getCircle(centre, radius);
 
 			}
