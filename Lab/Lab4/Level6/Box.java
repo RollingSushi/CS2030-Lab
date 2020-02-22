@@ -62,10 +62,12 @@ public class Box<T> {
     public boolean equals(Object object) {
         if (object instanceof Box) {
             Box<T> box = (Box<T>) object;
-            if (box.content == this.content || box.content.equals(this.content)) {
+            if (this.content == null && box.content == null) {
                 return true;
-            } else {
+            } else if (this.content == null || box.content == null) {
                 return false;
+            } else {
+                return (box.content == this.content || box.content.equals(this.content));
             }
         } else {
             return false;
