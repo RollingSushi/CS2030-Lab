@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ImmutableList<T> {
+    private final List<T> list;
+
+
+    public ImmutableList(List<T> list) {
+        this.list = list;
+    }
+
+    @SafeVarargs
+    public ImmutableList(T... item) {
+        List<T> list = Arrays.asList(item);
+        this.list = list;
+    }
+
+    public ImmutableList<T> add(T item) {
+        List<T> newList = this.list.add(item);
+        return new ImmutableList<T>(newList);
+    }
+
+    public ImmutableList<T> replace(T item) {
+        List<T> newList = this.list.add(item);
+        return new ImmutableList<T>(list.ReplaceAll(x -> item == x ? x : item));
+    }
+
+    public ImmutableList<T> remove(T item) {
+        List<T> newList = this.list.remove(item);
+        return new ImmutableList<T>(newList);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(this.list.toArray());
+    }
+
+}
